@@ -1,0 +1,19 @@
+{
+  "user.id": 1,
+  "user.name": "John",
+  "user.address.city": "New York",
+  "user.address.zipcode.prefix": 100,
+  "user.address.zipcode.suffix": 1,
+  "user.preferences.notifications.email": true,
+  "user.preferences.notifications.sms": false,
+  "user.preferences.theme": "dark",
+  "posts[0].id": 101,
+  "posts[0].title": "Hello World",
+  "posts[0].comments[0].user": "Alice",
+  "posts[0].comments[0].message": "Nice post!",
+  "posts[0].comments[1].user": "Bob",
+  "posts[0].comments[1].message": "I agree!",
+  "posts[1].id": 102,
+  "posts[1].title": "Deep Dive",
+  "posts[1].comments": []
+}

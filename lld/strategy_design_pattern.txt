@@ -1,0 +1,183 @@
+// what is design pattern
+
+//design pattern are the principle for the object oriented programming
+
+pros of design pattern
+//managable, scalable & resuable software design
+
+//inheritance
+when you try to access properties and method of another class
+
+class Car {
+  constructor(brand) {
+    this.carname = brand;
+  }
+  present() {
+    return 'I have a ' + this.carname;
+  }
+}
+
+class Model extends Car {
+  constructor(brand, mod) {
+    super(brand);
+    this.model = mod;
+  }
+  show() {
+    return this.present() + ', it is a ' + this.model;
+  }
+}
+
+const myCar = new Model("Ford", "Mustang");
+
+//we will see how strategy design pattern helps to scale the system.
+
+// there are two types of class -  base class and derived class
+
+//base class is also know as parent class
+//derived class is known as child class bcoz it inherits properties and 
+//method of it parent class which is base class.
+
+//let say have a base class named - "Vehicle"
+
+// vehicle class has drive method.
+
+ class vehicle{
+    constructor(){
+
+    }
+
+    drive(){
+        //do something
+    }
+ }
+
+// let say we have 3 another child class
+// 1 -> sporty vehicle 
+// 2 -> passenger vehicle
+// 3 -> offroad vehicle
+
+// now let suppose off road vehicle need some special capability (drive method) so it create his own method and it will override its parent method of drive()
+
+//for understanding method override see the method_overide.txt
+
+//now let say sport vehicle also need some special capability do he made his own drive method.
+
+//now let say the spcial capability of sports vehicle is same as offroad vehicle.
+// if they are same so it's a duplicate piece of code
+
+//issue came when different category vehichle need some special method
+// and few classes need that same method so making their own method 
+// in their own class leads to duplication of same code
+
+//the problem you can see is the child are not able to use capability of their parent class totally because some child are using parent drive method & few childs are defining the smae code which leads to duplicate code 
+
+//now let suppose some new features are coming and you created two more child class but you want that method in some of prev class and some of new class so you might end up copy pasting same logic in 2/3 different child class. which is problematic when the application grow
+//problem - no code resuable & duplicate of code
+
+// we can take a interface let name it as "driveInterface'
+inside this interface we have created one drive method
+we know that we need two type of capabilty which 
+1 - >  normal capability
+2 - > special capability
+const driveInterface = {
+
+   drive: function () { 
+    //some logic
+   },
+    
+};  
+
+class passengerVehicle{
+    drive(){
+        //normal capability
+    }
+}
+
+class SportVehicle{
+    drive(){
+        //special capability
+    }
+}
+
+
+if in future any new type of vehicel came let say XYZ
+so it will define his own type of derive method
+
+class XYZVehicle{
+    drive(){
+        //xyz logic of drive
+    }
+}
+
+//earlier mistake we were doing is defining the capability in base class
+//now we dont define drive is base class we will say vehicle has a 
+//driveInterface or vehicle has the interface strategy
+
+//example we dicussed
+// Define the driveStrategy base class
+class DriveStrategy {
+    drive() {
+        throw new Error("Method 'drive()' must be implemented.");
+    }
+}
+
+// Define the normalDrive class
+class NormalDrive extends DriveStrategy {
+    drive() {
+        console.log("Normal drive");
+    }
+}
+
+// Define the SpecialDrive class
+class SpecialDrive extends DriveStrategy {
+    drive() {
+        console.log("Fast drive");
+    }
+}
+
+// Define the vehicle class
+class Vehicle {
+    constructor(driveStrategy) {
+        this.driveStrategy = driveStrategy;
+    }
+
+    drive() {
+        this.driveStrategy.drive();
+    }
+}
+
+// Define the sports class
+class Sports extends Vehicle {
+    constructor() {
+        super(new SpecialDrive());
+    }
+}
+
+// Define the offroad class
+class Offroad extends Vehicle {
+    constructor() {
+        super(new SpecialDrive());
+    }
+}
+
+// Define the passenger class
+class Passenger extends Vehicle {
+    constructor() {
+        super(new NormalDrive());
+    }
+}
+
+// Example usage
+const off = new Offroad();
+off.drive();  // Output: Fast drive
+
+const pass = new Passenger();
+pass.drive(); // Output: Normal drive
+
+const sport = new Sports()
+pass.drive()
+
+
+
+for better example can vist - > https://www.geeksforgeeks.org/strategy-method-javascript-design-pattern/
+
