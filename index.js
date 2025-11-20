@@ -47,11 +47,11 @@
 
 
 
-const parent = {role:"Admin"};
-const user = Object.create(parent);
+// const parent = {role:"Admin"};
+// const user = Object.create(parent);
 
-user.age = 28;
-user.name = "Rajat";
-console.log(user)
-console.log(user.role);
+// user.age = 28;
+// user.name = "Rajat";
+// console.log(user)
+// console.log(user.role);
 
