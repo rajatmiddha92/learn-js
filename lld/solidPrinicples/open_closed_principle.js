@@ -98,14 +98,111 @@ shudi.getFootballerRole();
 // | `Defender`, `Goalkeeper` | Concrete roles implementing behavior |
 
 
+// --------------------------------------
+// PRODUCT
+// --------------------------------------
+class Product {
+  constructor(name, price) {
+    this.name = name;
+    this.price = price;
+  }
+}
 
+// --------------------------------------
+// SHOPPING CART
+// --------------------------------------
+class ShoppingCart {
+  constructor() {
+    this.cartlist = [];
+  }
+
+  addProd(product) {
+    this.cartlist.push(product);
+  }
+
+  calculateTotal() {
+    return this.cartlist.reduce((sum, item) => sum + item.price, 0);
+  }
+}
+
+// --------------------------------------
+// INVOICE PRINTER
+// --------------------------------------
+class PrintInvoice {
+  constructor(cart) {
+    this.cart = cart;
+  }
+
+  print() {
+    console.log("---- Invoice ----");
+    this.cart.cartlist.forEach((p) => {
+      console.log(`Product: ${p.name} | Price: ${p.price}`);
+    });
+    console.log("Total:", this.cart.calculateTotal());
+  }
+}
+
+// --------------------------------------
+// DB PROVIDER INTERFACE (STRATEGY)
+// --------------------------------------
+class DBProvider {
+  save(data) {
+    throw new Error("save() must be implemented by providers");
+  }
+}
+
+// --------------------------------------
+// SQL PROVIDER
+// --------------------------------------
+class SQLProvider extends DBProvider {
+  save(data) {
+    console.log("💾 Saving to SQL Database...");
+    console.log("SQL Data:", data);
+  }
+}
+
+// --------------------------------------
+// MONGO PROVIDER
+// --------------------------------------
+class MongoProvider extends DBProvider {
+  save(data) {
+    console.log("🍃 Saving to MongoDB...");
+    console.log("Mongo Data:", data);
+  }
+}
+
+// --------------------------------------
+// SAVE TO DB (NO CHANGE EVER AGAIN)
+// --------------------------------------
 class SaveToDB {
   constructor(provider) {
-    this.provider = provider;
+    this.provider = provider; // inject provider
   }
 
   save(data) {
     this.provider.save(data);
   }
 }
+
+// --------------------------------------
+// USAGE
+// --------------------------------------
+let cart = new ShoppingCart();
+let mouse = new Product("HP Mouse", 399);
+let laptop = new Product("Acer Laptop", 49999);
+
+cart.addProd(mouse);
+cart.addProd(laptop);
+
+// Print invoice
+let invoice = new PrintInvoice(cart);
+invoice.print();
+
+// Save to different databases
+let sqlSaver = new SaveToDB(new SQLProvider());
+sqlSaver.save(cart.cartlist);
+
+let mongoSaver = new SaveToDB(new MongoProvider());
+mongoSaver.save(cart.cartlist);
+
 
