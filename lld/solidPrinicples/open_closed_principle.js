@@ -96,3 +96,16 @@ shudi.getFootballerRole();
 // | `Footballer`             | Core entity                          |
 // | `Role`                   | Abstract behavior                    |
 // | `Defender`, `Goalkeeper` | Concrete roles implementing behavior |
+
+
+
+class SaveToDB {
+  constructor(provider) {
+    this.provider = provider;
+  }
+
+  save(data) {
+    this.provider.save(data);
+  }
+}
+
