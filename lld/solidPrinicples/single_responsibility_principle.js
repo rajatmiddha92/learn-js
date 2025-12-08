@@ -82,3 +82,51 @@ class ReportService {
 // the single responsibility principle. With the help of the single responsibility
 // principle, it helps us to reduce the complexity of the program and easier to
 // maintain the code.
+
+class Product {
+  constructor(name, price) {
+    this.name = name;
+    this.price = price;
+  }
+}
+class ShoppingCart {
+  constructor() {
+    this.cartlist = [];
+  }
+  addProd(product) {
+    this.cartlist.push(product);
+  }
+  calculateTotal() {
+    return this.cartlist.reduce((sum, p) => sum + p.price, 0);
+  }
+}
+class PrintInvoice {
+  constructor(cart) {
+    this.cart = cart;
+  }
+  printInv() {
+    this.cart.cartlist.forEach((p) => {
+      console.log(`Product: ${p.name}, Price: ${p.price}`);
+    });
+    console.log("Total:", this.cart.calculateTotal());
+  }
+}
+class SaveToDB {
+  constructor(cart) {
+    this.cart = cart;
+  }
+  saveDB() {
+    console.log("Saving to DB:", this.cart.cartlist);
+  }
+}
+// ===== Usage =====
+let rajatCart = new ShoppingCart();
+let mouse = new Product("HP Mouse", 399);
+let pc = new Product("Acer Laptop", 49999);
+rajatCart.addProd(mouse);
+rajatCart.addProd(pc);
+let invoice = new PrintInvoice(rajatCart);
+let db = new SaveToDB(rajatCart);
+invoice.printInv();
+db.saveDB();
+

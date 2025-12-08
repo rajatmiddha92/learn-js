@@ -95,3 +95,126 @@ class Solution {
     return dp[n][half];
   }
 }
+
+
+//
+/**
+ * @param {number[]} arr
+ * @returns {boolean}
+ */
+
+class Solution {
+    
+  solve(arr,n,sum){
+      if(sum == 0) return true
+      if(n == 0 || sum < 0) return false
+      
+      
+      return this.solve(arr,n-1,sum-arr[n-1]) || this.solve(arr,n-1,sum)
+  }
+  
+  equalPartition(arr) {
+      // your code here
+      let n = arr.length;
+      
+      let sum = 0;
+      
+      for(let i = 0; i < n ; i++){
+          sum += arr[i]
+      }
+      
+      if(sum % 2 != 0) return false
+      
+      let halfSum = sum/2
+      
+      return this.solve(arr,n,halfSum)
+  }
+}
+
+
+// memoize
+ class Solution {
+    
+  solve(arr,n,sum,memo){
+      if(sum == 0) return true
+      if(n == 0 || sum < 0) return false
+      
+      if(memo[n][sum] != -1) return memo[n][sum]
+      
+      return memo[n][sum] = this.solve(arr,n-1,sum-arr[n-1],memo) || this.solve(arr,n-1,sum,memo)
+  }
+  
+  equalPartition(arr) {
+      // your code here
+      let n = arr.length;
+      
+      let sum = 0;
+      
+      for(let i = 0; i < n ; i++){
+          sum += arr[i]
+      }
+      
+      if(sum % 2 != 0) return false
+      
+      let halfSum = sum/2
+      
+      let memo = []
+      for(let i = 0 ; i < n + 1 ; i++){
+          memo[i] = []
+          for(let j = 0 ; j < halfSum + 1 ; j++){
+              memo[i].push(-1)
+          }
+      }
+      
+      return this.solve(arr,n,halfSum,memo)
+  }
+}
+
+// dp
+/**
+ * @param {number[]} arr
+ * @returns {boolean}
+ */
+
+class Solution {
+    
+
+  equalPartition(arr) {
+      // your code here
+      let n = arr.length;
+      
+      let sum = 0;
+      
+      for(let i = 0; i < n ; i++){
+          sum += arr[i]
+      }
+      
+      if(sum % 2 != 0) return false
+      
+      let halfSum = sum/2
+      
+      let dp = []
+      for(let i = 0 ; i < n + 1 ; i++){
+          dp[i] = []
+          for(let j = 0 ; j < halfSum + 1 ; j++){
+              if(i==0){
+                  dp[i][j] = false
+              }
+              
+              if(j== 0){
+                  dp[i][j] = true
+              }
+          }
+      }
+      
+        for(let i = 1 ; i < n + 1 ; i++){
+      
+          for(let j = 1 ; j < halfSum + 1 ; j++){
+              
+              dp[i][j] = dp[i-1][j-arr[i-1]] || dp[i-1][j]
+          }
+      }
+      
+      return dp[n][halfSum]
+  }
+}
