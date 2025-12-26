@@ -11,7 +11,7 @@ class Solution {
         if(capacity === 0 || n===0) return 0
         
         if(capacity >= wt[n-1]){
-            return  Math.max(val[n-1] + this.solve(val,wt,n,capacity - wt[n-1]),this.solve(val,wt,n-1,capacity-wt[n-1]),this.solve(val,wt,n-1,capacity))
+            return  Math.max(val[n-1] + this.solve(val,wt,n,capacity - wt[n-1]),this.solve(val,wt,n-1,capacity))
         }
         else{
             return this.solve(val,wt,n-1,capacity)
@@ -39,7 +39,7 @@ class Solution {
         
         if(memo[n][capacity] != -1) return memo[n][capacity]
         if(capacity >= wt[n-1]){
-            return memo[n][capacity] = Math.max(val[n-1] + this.solve(val,wt,n,capacity - wt[n-1],memo),this.solve(val,wt,n-1,capacity-wt[n-1],memo),this.solve(val,wt,n-1,capacity,memo))
+            return memo[n][capacity] = Math.max(val[n-1] + this.solve(val,wt,n,capacity - wt[n-1],memo),this.solve(val,wt,n-1,capacity,memo))
         }
         else{
             return memo[n][capacity] = this.solve(val,wt,n-1,capacity,memo)
@@ -80,7 +80,7 @@ class Solution {
             for(let j = 1 ; j < capacity+1 ; j++){
 
         if(j >= wt[i-1]){
-            dp[i][j] = Math.max(val[i-1] + dp[i][j - wt[i-1]],dp[i-1][j-wt[i-1]],dp[i-1][j])
+            dp[i][j] = Math.max(val[i-1] + dp[i][j - wt[i-1]],dp[i-1][j])
         }
         else{
            dp[i][j] = dp[i-1][j]
