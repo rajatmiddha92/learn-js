@@ -49,26 +49,11 @@ class Solution {
 
 
 // dp sol
-
 /**
  * @param {string} s
  * @return {number}
  */
-class Solution {
-    lcs(s1,s2,m,n,cache){
-        if(m == 0 || n == 0) return 0;
-        
-        if(cache[m][n] != -1) return cache[m][n]
-        
-        if(s1[m-1] == s2[n-1]){
-            return  cache[m][n] = 1 + this.lcs(s1,s2,m-1,n-1,cache)
-        }
-        else{
-            return cache[m][n] =  Math.max(this.lcs(s1,s2,m-1,n,cache),this.lcs(s1,s2,m,n-1,cache))
-        }
-    }
-    longestPalinSubseq(s) {
-        // code here
+var longestPalindromeSubseq = function(s) {
         let s1 = s
         let s2 = s.split("").reverse().join('')
         let m = s1.length, n = s1.length;
@@ -92,5 +77,4 @@ class Solution {
         }
         return dp[m][m]
         
-    }
-}
+};
