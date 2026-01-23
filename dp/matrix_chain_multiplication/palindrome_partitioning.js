@@ -82,10 +82,7 @@ class Solution {
               let temp = 1 + this.solve(s,end+1,memo) 
                min = Math.min(min,temp)
            }
-
-           
-          
-           
+   
        }
        
        return memo[start] = min
