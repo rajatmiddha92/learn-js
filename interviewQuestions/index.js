@@ -20,29 +20,29 @@
 
 let users = [
   {
-    name: "John Doe",
-    city: "New York",
-    dob: "1990-05-14",
+    name: 'John Doe',
+    city: 'New York',
+    dob: '1990-05-14',
   },
   {
-    name: "Alice Johnson",
-    city: "Los Angeles",
-    dob: "1985-09-23",
+    name: 'Alice Johnson',
+    city: 'Los Angeles',
+    dob: '1985-09-23',
   },
   {
-    name: "Michael Smith",
-    city: "Chicago",
-    dob: "1992-07-11",
+    name: 'Michael Smith',
+    city: 'Chicago',
+    dob: '1992-07-11',
   },
   {
-    name: "Emma Davis",
-    city: "Houston",
-    dob: "1998-03-30",
+    name: 'Emma Davis',
+    city: 'Houston',
+    dob: '1998-03-30',
   },
   {
-    name: "David Martinez",
-    city: "San Francisco",
-    dob: "1989-12-17",
+    name: 'David Martinez',
+    city: 'San Francisco',
+    dob: '1989-12-17',
   },
 ];
 
@@ -107,19 +107,19 @@ let users = [
 // ])
 
 let arr = [
-  "0.2.2",
-  "1.12.45",
-  "1.23.45",
-  "0.12.0",
-  "0.2.3",
-  "1.2.3",
-  "1.2.4",
-  "1.2.5",
-  "1.2.6",
-  "1.2.7",
-  "1.2.8",
-  "1.2.9",
-  "0.12.0",
+  '0.2.2',
+  '1.12.45',
+  '1.23.45',
+  '0.12.0',
+  '0.2.3',
+  '1.2.3',
+  '1.2.4',
+  '1.2.5',
+  '1.2.6',
+  '1.2.7',
+  '1.2.8',
+  '1.2.9',
+  '0.12.0',
 ];
 
 // sort the arr in ascending order
@@ -146,60 +146,80 @@ let arr = [
 
 // how node is single threaded or event driven?
 
-// what is callback hell ? 
+// what is callback hell ?
 
 // what is event loop in javascript
 
 // how node js executes ?
-//     
-    // let arr=[60,30,10,67,40];
-    // 1. Insert 70 at the 2nd Position without extra space
-    // 2. reverse an array without extra space
-    // function reverseArray(arr){
-    //   let left = 0;
-    //   let right = arr.length-1;
-      
-    //   while(left<right){
-    //     [arr[left],arr[right]]=[arr[right],arr[left]]
-    //     left++
-    //     right--
-    //   }
-    //   return arr
-    // }
+//
+// let arr=[60,30,10,67,40];
+// 1. Insert 70 at the 2nd Position without extra space
+// 2. reverse an array without extra space
+// function reverseArray(arr){
+//   let left = 0;
+//   let right = arr.length-1;
 
+//   while(left<right){
+//     [arr[left],arr[right]]=[arr[right],arr[left]]
+//     left++
+//     right--
+//   }
+//   return arr
+// }
 
-    // two table 
+// two table
 
-    // one is user - userId,name,email(unique),phone,lid(ref-location table)
-    // 2nd in location - lid,city,state,country
-    // write a query to get user with specified mailid with location
+// one is user - userId,name,email(unique),phone,lid(ref-location table)
+// 2nd in location - lid,city,state,country
+// write a query to get user with specified mailid with location
 
-  //   const userWithLocation = await User.findOne({ email })
-  // .populate('lid') // Populates location reference
-  // .exec();
+//   const userWithLocation = await User.findOne({ email })
+// .populate('lid') // Populates location reference
+// .exec();
 
-    // 3rd table is subjects
-    // subjectId,subjectName,status- passed/failed,userid(ref-user table)
-    // write a query to get all subject with status passed/failed count
+// 3rd table is subjects
+// subjectId,subjectName,status- passed/failed,userid(ref-user table)
+// write a query to get all subject with status passed/failed count
 
-    // const statusCounts = await Subject.aggregate([
-    //   {
-    //     $match: {
-    //       userId: userId
-    //     }
-    //   },
-    //   {
-    //     $group: {
-    //       _id: '$status',
-    //       count: { $sum: 1 }
-    //     }
-    //   }
-    // ]);
+// const statusCounts = await Subject.aggregate([
+//   {
+//     $match: {
+//       userId: userId
+//     }
+//   },
+//   {
+//     $group: {
+//       _id: '$status',
+//       count: { $sum: 1 }
+//     }
+//   }
+// ]);
 
-    // what is loosely coupled and tightly coupled
+// what is loosely coupled and tightly coupled
 
-    // what is useEffect & usecallback
+// what is useEffect & usecallback
 
-    // write a timer function
-    // write a stopwatch function
-    // what is high order function
+// write a timer function
+// write a stopwatch function
+// what is high order function
+
+// 3 yrs full stack question asked
+
+// cluster module and worker thread
+
+// how do you optimize a react application
+
+// how do you opitmize a mongodb query facing issues at aggregation pipeline
+
+// what is event loop in javascript
+
+// what challenges will you face using sockets in node js
+
+// if you have two apis one is get another is post
+// and redis is used for cache how will you handle the cache invalidation
+// post api will return data and get api will return stale data
+// how to solve this problem
+// soln given update redis when post or delete key from the redis
+// follow up let say assume, your app is write heavy operations
+// and updating redis/ deleting key from redis is overhead
+// don't you think this soln is a mess ?
