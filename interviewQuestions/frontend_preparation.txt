@@ -1,0 +1,289 @@
+// Q1 Op
+let x = 1;
+{
+  var x = 2;
+}
+{
+  console.log(x)
+}
+Ans - Identifier x has alread been declared error
+
+// Q2 Op
+let x = 1;
+var x = 2;
+{
+    console.log(x)
+}
+Ans -Identifier x has alread been declared error
+
+// Q3 Op
+let x = 1;
+{
+  console.log(x)
+}
+Ans = 1 
+
+4. difference between react and nextjs
+| Feature      | React                           | Next.js                                                     |
+| ------------ | ------------------------------- | ----------------------------------------------------------- |
+| Type         | Library                         | Full framework built on React                               |
+| Rendering    | Client-side rendering (CSR)     | CSR + Server-side rendering (SSR) + Static generation (SSG) |
+| Routing      | Need external library           | Built-in file-based routing                                 |
+| SEO          | Harder (content loads after JS) | Excellent SEO (server rendered pages)                       |
+| Backend APIs | Need separate backend           | Built-in API routes                                         |
+| Performance  | Good but depends on setup       | Optimized automatically                                     |
+| Setup        | Manual configuration            | Opinionated, ready-to-use structure   
+
+⚛️ React (Core Library)
+
+React is mainly used for building UI components.
+
+Example features:
+Components
+Hooks (useState, useEffect)
+Virtual DOM
+Client-side rendering
+
+Example project structure:
+src/
+  components/
+  pages/
+  App.js
+  index.js
+
+Typical stack:
+React + React Router + Redux + Axios + Webpack/Vite
+You configure everything yourself.
+
+▲ Next.js (Full React Framework)
+
+Next.js is a production framework built on top of React.
+It adds many things automatically:
+Built-in features
+File-based routing
+Server-side rendering
+Static site generation
+API routes
+Image optimization
+Code splitting
+SEO optimization
+
+Example structure:
+app/
+  page.tsx
+  dashboard/page.tsx
+api/
+  users/route.ts
+No need for React Router.
+
+⚡ Rendering Difference
+React
+Browser → Load JS → Render UI
+Slow first load sometimes.
+
+Next.js
+Server → Render HTML → Send to browser
+Fast first load + SEO.
+
+🧠 When to Use React
+Use React only if:
+
+Building internal dashboards
+SEO not important
+You want full control over architecture
+Existing SPA system
+
+Example:
+Admin Panel
+CRM
+Analytics Dashboard
+
+🚀 When to Use Next.js
+
+Use Next.js if:
+
+SEO matters
+Marketing websites
+E-commerce
+Blogs
+SaaS landing pages
+
+Example:
+E-commerce
+Startup landing pages
+Documentation sites
+
+✅ Quick interview answer
+
+React is a JavaScript library used to build UI components, while Next.js
+is a full-stack React framework that adds features like server-side 
+rendering, file-based routing, and API routes to improve performance and 
+SEO.
+
+React 18 and 19 features:
+
+🚀 React 18 – Major New Features (2022)
+1️⃣ Concurrent Rendering
+
+React 18 introduced Concurrent Rendering, allowing React to pause, 
+resume, or abandon renders to keep the UI responsive during heavy 
+updates.
+
+Example:
+import { createRoot } from "react-dom/client";
+
+const root = createRoot(document.getElementById("root"));
+root.render(<App />);
+
+previously 
+import ReactDOM from "react-dom";
+ReactDOM.render(<App />, document.getElementById("root"));
+
+Benefits:
+
+Better responsiveness
+Interruptible rendering
+Background rendering
+
+2️⃣ Automatic Batching
+
+React now groups multiple state updates into a single render automatically,
+even inside promises or timeouts.
+
+Example:
+setTimeout(() => {
+  setCount(c => c + 1);
+  setFlag(f => !f);
+});
+Before React 18 → 2 renders
+React 18 → 1 render
+
+3️⃣ Transitions (useTransition & startTransition)
+Allows React to separate urgent vs non-urgent updates.
+
+Example:
+const [isPending, startTransition] = useTransition();
+
+startTransition(() => {
+  setSearchResults(results);
+});
+
+Use cases:
+
+Search filtering
+Navigation
+Large lists
+
+4️⃣ Suspense Improvements
+
+Suspense now works for data fetching and server rendering.
+
+<Suspense fallback={<Spinner />}>
+   <UserProfile />
+</Suspense>
+
+It allows React to show fallback UI while waiting for async data.
+
+Suspense existed before React 18 but was mainly used for lazy loading 
+components with React.lazy. In React 18 it was extended to support 
+concurrent rendering, data fetching, and streaming server-side rendering.
+
+previously
+import React, { Suspense, lazy } from "react";
+
+const UserProfile = lazy(() => import("./UserProfile"));
+
+<Suspense fallback={<Spinner />}>
+  <UserProfile />
+</Suspense>
+
+5️⃣ New Root API
+
+Old:
+ReactDOM.render(<App />, root)
+
+New:
+createRoot(root).render(<App />)
+
+This enables concurrent features.
+
+6️⃣ New Hooks
+
+React 18 introduced several hooks:
+
+useTransition
+useDeferredValue
+useId
+useSyncExternalStore
+useInsertionEffect
+
+7️⃣ Streaming Server-Side Rendering
+
+React can stream HTML from the server progressively, improving 
+load time and SEO.
+
+⚡ React 19 – Major New Features (2024+)
+
+React 19 focuses more on developer experience and server integration.
+
+1️⃣ React Server Components (Stable)
+
+Server components allow parts of the UI to run on the server 
+instead of the browser, reducing bundle size.
+
+Benefits:
+
+Smaller JS bundle
+Faster load
+Better performance
+Often used with frameworks like Next.js.
+
+2️⃣ Actions (Server Actions)
+
+React 19 introduced server actions to simplify backend interactions.
+
+Example:
+
+async function createUser(formData) {
+   "use server"
+   await db.user.create(...)
+}
+
+Used directly inside components.
+
+3️⃣ New Hooks
+ 1 use()
+
+Allows components to await promises directly.
+
+Example:
+
+const data = use(fetchUser());
+No need for useEffect + useState.
+
+ 2 useFormStatus
+
+Helps track form submission state.
+
+const { pending } = useFormStatus();
+
+4️⃣ Built-in Form Handling
+
+React 19 improves form submission and mutation handling.
+
+Example:
+<form action={createUser}>
+
+No manual API calls needed.
+
+5️⃣ Asset Loading Improvements
+
+React now automatically optimizes:
+
+scripts
+styles
+images
+fonts
+
+This improves initial load performance.
+
