@@ -287,3 +287,106 @@ fonts
 
 This improves initial load performance.
 
+Question difference between redux and context api
+⚛️ Redux vs Context API
+
+| Feature     | Redux                             | React Context API      |
+| ----------- | --------------------------------- | ---------------------- |
+| Type        | External state management library | Built-in React feature |
+| Complexity  | More complex setup                | Simple to implement    |
+| Best for    | Large applications                | Small to medium apps   |
+| Performance | Optimized with selectors          | Can cause re-renders   |
+| DevTools    | Excellent debugging tools         | No built-in devtools   |
+| Middleware  | Supports middleware (Thunk, Saga) | No middleware          |
+| Boilerplate | More boilerplate                  | Very little code       |
+
+🧠 Context API
+
+Context API is used to share state globally without prop drilling.
+
+Example:
+
+const UserContext = React.createContext();
+
+function App() {
+  return (
+    <UserContext.Provider value={{ name: "Rajat" }}>
+      <Profile />
+    </UserContext.Provider>
+  );
+}
+
+Consume:
+
+const user = useContext(UserContext);
+Use Context when:
+
+Theme management
+
+Auth user
+
+Language settings
+
+Small global state
+
+🧠 Redux
+
+Redux manages complex global state with predictable updates.
+
+Key concepts:
+
+Store
+Actions
+Reducers
+Dispatch
+Selectors
+
+Example:
+
+dispatch({ type: "ADD_TODO", payload: todo })
+
+Reducer updates state:
+
+function reducer(state, action) {
+  switch(action.type) {
+    case "ADD_TODO":
+      return [...state, action.payload]
+  }
+}
+⚡ Performance Difference
+Context API
+
+When context value changes:
+All consuming components re-render
+
+Redux
+Only components using changed state slice re-render.
+
+🏗 Real-world usage
+Use Context API for:
+
+Theme
+Auth user
+Language
+Small settings
+
+Use Redux for:
+
+Large dashboards
+Complex state
+Multiple APIs
+Shared business logic
+Caching
+
+Example apps:
+
+E-commerce cart
+Admin dashboards
+Realtime data apps
+
+🎯 Interview-Ready Answer
+
+Context API is a built-in React feature used for passing data through the component tree 
+without prop drilling, while Redux is a dedicated state management library designed for 
+large applications that require predictable state updates, middleware, and powerful 
+debugging tools.
