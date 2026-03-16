@@ -24,6 +24,7 @@
 // How your current solution is designed to scale to support a larger number of dashboard variants.
 // How you would approach adding new widget types to your system in the future.
 
+// sol starts from here
 // 1. Architecture Overview
 
 // Key ideas used:

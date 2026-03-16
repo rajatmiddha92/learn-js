@@ -78,3 +78,70 @@ lruCache.put(100, 32323);
 lruCache.get(2);
 lruCache.put(4, 400);
 console.log(lruCache);
+
+class Node {
+  constructor(key, value) {
+    this.key = key;
+    this.value = value;
+    this.prev = null;
+    this.next = null;
+  }
+}
+class LRUCache {
+  constructor(capacity) {
+    this.capacity = capacity;
+    this.head = new Node(-1, -1);
+    this.tail = new Node(-1, -1);
+    this.tail.prev = this.head;
+    this.head.next = this.tail;
+    this.cache = new Map();
+  }
+  #add(node) {
+    node.next = this.head.next;
+    this.head.next.prev = node;
+    node.prev = this.head;
+    this.head.next = node;
+  }
+
+  #remove(node) {
+    // remove from list
+    node.prev.next = node.next;
+    node.next.prev = node.prev;
+  }
+
+  get(key) {
+    if (!this.cache.get(key)) return -1;
+
+    let node = this.cache.get(key);
+    this.#remove(node);
+    this.#add(node);
+
+    return node.value;
+  }
+
+  put(key, value) {
+    if (this.cache.has(key)) {
+      // remove prev valye from list if same key already exist
+      this.#remove(this.cache.get(key));
+    }
+    let node = new Node(key, value);
+    this.cache.set(key, node);
+    this.#add(node);
+
+    if (this.cache.size > this.capacity) {
+      const removeNode = this.tail.prev;
+      this.#remove(removeNode);
+      this.cache.delete(removeNode.key);
+    }
+  }
+}
+
+let ans = new LRUCache(3);
+console.log(ans.get(1));
+ans.put(1, 200);
+ans.put(2, 1000);
+console.log(ans.get(1));
+ans.put(3, 108700);
+ans.put(2, 'ten');
+ans.put(5000, 'ej');
+console.log(ans);
