@@ -1,4 +1,4 @@
-import PaymentStrategy from './PaymentStrategy';
+const PaymentStrategy = require('./PaymentStrategy');
 
 class CashPayment extends PaymentStrategy {
   processPayment(ticket, amount) {

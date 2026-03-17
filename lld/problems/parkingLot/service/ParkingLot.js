@@ -1,4 +1,7 @@
 const PricingStrategyType = require('./../enums/PricingStrategyType');
+const PricingStrategyFactory = require('../factory/PricingStrategyFactory');
+const PaymentStrategyFactory = require('../factory/PaymentStrategyFactory');
+const PaymentProcessor = require('./PaymentProcessor');
 const { randomUUID } = require('crypto');
 class ParkingLot {
   static instance = new ParkingLot();
@@ -11,7 +14,7 @@ class ParkingLot {
     this.floors = new Map(); // Map<String, ParkingFloor>
     this.activeTickets = new Map(); // Map<String, Ticket>
 
-    this.pricingStrategy = PricingStrategyType['TIME_BASED'];
+    this.pricingStrategy = PricingStrategyFactory.get(PricingStrategyType.TIME_BASED);
 
     ParkingLot.instance = this;
   }
@@ -21,7 +24,7 @@ class ParkingLot {
   }
 
   setPricingStrategy(strategy) {
-    this.pricingStrategy = strategy;
+    this.pricingStrategy = PricingStrategyFactory.get(strategy);
   }
 
   addFloor(floor) {

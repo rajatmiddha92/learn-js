@@ -1,5 +1,5 @@
-import ParkingLot from '../service/ParkingLot';
-import Gate from './Gate';
+const ParkingLot = require('../service/ParkingLot');
+const Gate = require('./Gate');
 
 class EntryGate extends Gate {
   constructor(id) {
