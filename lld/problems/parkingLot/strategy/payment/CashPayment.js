@@ -1,4 +1,6 @@
-class CashPayment {
+import PaymentStrategy from './PaymentStrategy';
+
+class CashPayment extends PaymentStrategy {
   processPayment(ticket, amount) {
     console.log(`Paid ₹${amount} via Cash for ${ticket.ticketId}`);
 
