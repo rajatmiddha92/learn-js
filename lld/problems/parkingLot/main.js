@@ -12,7 +12,7 @@ const lot = ParkingLot.getInstance();
 const entryGate = new EntryGate('EG1');
 const exitGate = new ExitGate('XG1');
 
-lot.setPricingStrategy(PricingStrategyType.EVENT_BASED);
+lot.setPricingStrategy(PricingStrategyType.TIME_BASED);
 
 const floor1 = new ParkingFloor('Floor1');
 
