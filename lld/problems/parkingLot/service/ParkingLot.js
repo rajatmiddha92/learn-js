@@ -93,7 +93,7 @@ class ParkingLot {
     for (let [floorId, floor] of this.floors.entries()) {
       for (let spot of floor.spots.values()) {
         console.log(
-          ` Spot ${spot.id} [${spot.allowedType}] - ${spot.isOccupied ? 'Occupied' : 'Free'}`
+          ` Spot ${spot.id} [${spot.allowedType}] - ${spot.isOccupied() ? 'Occupied' : 'Free'}`
         );
       }
     }
