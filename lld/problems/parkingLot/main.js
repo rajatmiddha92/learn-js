@@ -17,8 +17,8 @@ lot.setPricingStrategy(PricingStrategyType.EVENT_BASED);
 const floor1 = new ParkingFloor('Floor1');
 
 floor1.addSpot(new ParkingSpot('S1', VehicleType.BIKE));
-floor1.addSpot(new ParkingSpot('S2', VehicleType.CAR));
-floor1.addSpot(new ParkingSpot('S3', VehicleType.TRUCK));
+new ParkingSpot('S2', VehicleType.CAR);
+new ParkingSpot('S3', VehicleType.TRUCK);
 
 lot.addFloor(floor1);
 
