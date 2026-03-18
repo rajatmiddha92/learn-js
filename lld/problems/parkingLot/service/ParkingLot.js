@@ -91,8 +91,6 @@ class ParkingLot {
   // printStatus
   printStatus() {
     for (let [floorId, floor] of this.floors.entries()) {
-      console.log('Floor:', floorId);
-
       for (let spot of floor.spots.values()) {
         console.log(
           ` Spot ${spot.id} [${spot.allowedType}] - ${spot.isOccupied ? 'Occupied' : 'Free'}`
