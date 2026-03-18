@@ -31,4 +31,4 @@ lot.printStatus();
 const exitTime = new Date();
 exitGate.unparkVehicle(ticket.ticketId, exitTime, PaymentMode.UPI);
 
-lot.printStatus();
+// lot.printStatus();
