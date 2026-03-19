@@ -22,13 +22,15 @@ floor1.addSpot(new ParkingSpot('S3', VehicleType.TRUCK));
 
 lot.addFloor(floor1);
 
-const bike = VehicleFactory.create('KA01AB1234', VehicleType.BIKE);
+const bike1 = VehicleFactory.create('KA01AB1234', VehicleType.BIKE);
+const bike2 = VehicleFactory.create('UK06BA8050', VehicleType.BIKE);
 const entryTime = new Date();
-const ticket = entryGate.parkVehicle(bike, entryTime);
+const ticket = entryGate.parkVehicle(bike1, entryTime);
+const ticketTwo = entryGate.parkVehicle(bike2, entryTime);
 
 lot.printStatus();
 
 const exitTime = new Date();
 exitGate.unparkVehicle(ticket.ticketId, exitTime, PaymentMode.UPI);
 
-// lot.printStatus();
+lot.printStatus();

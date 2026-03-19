@@ -14,7 +14,7 @@ class ParkingLot {
     this.floors = new Map(); // Map<String, ParkingFloor>
     this.activeTickets = new Map(); // Map<String, Ticket>
 
-    this.pricingStrategy = PricingStrategyFactory.get(PricingStrategyType.TIME_BASED);
+    this.pricingStrategy = null;
 
     ParkingLot.instance = this;
   }
