@@ -224,3 +224,28 @@ let arr = [
 // and updating redis/ deleting key from redis is overhead
 // don't you think this soln is a mess ?
 // what is react fiber
+// print 1 to 10 without using for loops, inbuilt method, while, setInterval - ans recursion
+// what is polyfill ?  create any one
+// what is debounce and throttling
+// what is diff between Redux and context API
+// what is difference between thunk and saga
+// create a custom hook useFetch and given an api display data
+// follow up now create a search bar and it should show only search values
+// write debounce function in plain js
+// what is node js
+// how do you handle errors in nodejs
+// what is buffers in node js
+// what is event emitter in node js
+// what is event loop
+// what is differnce between setImmediate vs process.nextTick
+// what is aggregation ?
+// what is mongoDb ?
+// what is worker threads?
+// what is lookup?
+// how do you create indexes ?
+// what is rate limiting
+// follow up how you track ratelimit per user request - we maintain a collection of otp logs
+// what is streams in node js
+// event propogation in js
+// explain redux flow
+// What are the module in NodeJS
