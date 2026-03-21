@@ -142,72 +142,104 @@ player1.play(1, 2);
 console.log(game.board.board);
 
 
+
+
+// ===================== Board =====================
+class Board {
+  constructor(size) {
+    this.size = size;
+    this.cells = Array.from({ length: size }, () => Array(size).fill(''));
+  }
+
+  getCell(row, col) {
+    return this.cells[row][col];
+  }
+
+  setCell(row, col, symbol) {
+    this.cells[row][col] = symbol;
+  }
+
+  isFull() {
+    return this.cells.every(row => row.every(cell => cell !== ''));
+  }
+
+  print() {
+    console.table(this.cells);
+  }
+}
+
+// ===================== TicTacToe =====================
 class TicTacToe {
   constructor(size = 3) {
     this.size = size;
-    this.board = Array.from({ length: size }, () => Array(size).fill(''));
-    this.winner = null;
+    this.board = new Board(size);
     this.movesCount = 0;
+    this.winner = null;
+    this.gameState = 'PLAYING'; // PLAYING | DRAW | WON
   }
 
-  // Check if a move is valid
   isValid(row, col) {
     if (row < 0 || col < 0 || row >= this.size || col >= this.size) {
-      console.log('Invalid location');
+      console.log('Invalid move: out of bounds.');
       return false;
     }
-    if (this.board[row][col] !== '') {
-      console.log('This position is already filled');
+    if (this.board.getCell(row, col) !== '') {
+      console.log('Invalid move: cell already filled.');
       return false;
     }
     return true;
   }
 
-  // Make a move
-  playMove(row, col, symbol, name) {
-    if (this.winner) {
-      console.log(`Game over! ${this.winner} already won.`);
+  playMove(row, col, player) {
+    if (this.gameState !== 'PLAYING') {
+      console.log(`Game over! ${this.winner ? this.winner.name : 'No one'} won.`);
       return;
     }
 
     if (!this.isValid(row, col)) return;
 
-    this.board[row][col] = symbol;
+    this.board.setCell(row, col, player.symbol);
     this.movesCount++;
 
-    if (this.checkWin(row, col, symbol)) {
-      this.winner = name;
-      console.log(`Player ${name} won!`);
+    if (this.checkWin(row, col, player.symbol)) {
+      this.winner = player;
+      this.gameState = 'WON';
+      console.log(`Player ${player.name} won!`);
+      this.board.print();
       return;
     }
 
-    if (this.movesCount === this.size * this.size) {
+    if (this.board.isFull()) {
+      this.gameState = 'DRAW';
       console.log('Game is a draw!');
+      this.board.print();
+      return;
     }
   }
 
-  // Check if the current move wins
   checkWin(row, col, symbol) {
     // Check row
-    if (this.board[row].every(cell => cell === symbol)) return true;
+    if (this.board.cells[row].every(cell => cell === symbol)) return true;
 
     // Check column
-    if (this.board.every(r => r[col] === symbol)) return true;
+    if (this.board.cells.every(r => r[col] === symbol)) return true;
 
     // Check main diagonal
-    if (row === col && this.board.every((r, i) => r[i] === symbol)) return true;
+    if (row === col && this.board.cells.every((r, i) => r[i] === symbol)) return true;
 
     // Check anti-diagonal
-    if (row + col === this.size - 1 && this.board.every((r, i) => r[this.size - 1 - i] === symbol)) return true;
+    if (row + col === this.size - 1 &&
+        this.board.cells.every((r, i) => r[this.size - 1 - i] === symbol)) return true;
 
     return false;
   }
 
   printBoard() {
-    console.table(this.board);
+    this.board.print();
   }
 }
 
+// ===================== Player =====================
 class Player {
   constructor(name, symbol, game) {
     this.name = name;
@@ -216,21 +248,21 @@ class Player {
   }
 
   play(row, col) {
-    this.game.playMove(row, col, this.symbol, this.name);
+    this.game.playMove(row, col, this);
   }
 }
 
-// Example usage
+// ===================== Example Game =====================
 const game = new TicTacToe(3);
 const player1 = new Player('Rajat', 'X', game);
 const player2 = new Player('Sunny', 'O', game);
 
-player1.play(0, 2);
+// Simulate some moves
+player1.play(0, 0);
 player2.play(1, 1);
-player1.play(2, 0);
-player2.play(0, 0);
-player1.play(2, 2);
-player2.play(2, 1);
-player1.play(1, 2);
+player1.play(0, 1);
+player2.play(2, 2);
+player1.play(0, 2); // Rajat should win here
 
+// Print final board
 game.printBoard();
