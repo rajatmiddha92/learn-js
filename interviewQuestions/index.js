@@ -247,5 +247,6 @@ let arr = [
 // follow up how you track ratelimit per user request - we maintain a collection of otp logs
 // what is streams in node js
 // event propogation in js
+// event delegation
 // explain redux flow
 // What are the module in NodeJS
