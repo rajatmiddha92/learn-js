@@ -146,7 +146,7 @@ let arr = [
 
 // how node is single threaded or event driven?
 
-// what is callback hell ?
+// what is callback hell ? sol of callback hell
 
 // what is event loop in javascript
 
@@ -249,4 +249,17 @@ let arr = [
 // event propogation in js
 // event delegation
 // explain redux flow
-// What are the module in NodeJS
+// What are the module in NodeJS?
+// shallow copy vs deep copy
+// js methods for shallow copy (spread operator/ object.assign)
+// js methods for deep copy (JSON.parse(JSON.stringify(obj)))/ structuredCone(obj)
+// what is closure ?
+// what is hoisting in js?
+// what is mutation observer ?
+// what is intersection observer ?
+// difference between == & === operator ?
+// what is difference between lady loading and code splitting ?
+// react life cycle ?
+// useEffect without arr of deps execution?
+// Promise.all (execute all promises and if one fails it will stop and return error)
+// vs Promise.allSettled (execute all promises and give independent results)

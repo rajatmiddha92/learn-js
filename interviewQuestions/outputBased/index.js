@@ -118,31 +118,89 @@
 
 // obj3.name = "Akshay"
 
-
 // 13
 
-// var arr1 = "john".split(''); 
-// var arr2 = arr1.reverse(); 
-// var arr3 = "jones".split(''); 
-// arr2.push(arr3); 
+// var arr1 = "john".split('');
+// var arr2 = arr1.reverse();
+// var arr3 = "jones".split('');
+// arr2.push(arr3);
 // console.log(arr1)
-// console.log("array 1: length=" + arr1.length + " Result1=" + arr1.slice(-1));  
-// console.log("array 2: length=" + arr2.length + " Result2=" + arr2.slice(-1)); 
-
+// console.log("array 1: length=" + arr1.length + " Result1=" + arr1.slice(-1));
+// console.log("array 2: length=" + arr2.length + " Result2=" + arr2.slice(-1));
 
 // 14
 
 // console.log(function some(n){return n>1 ? n*some(n-1):1}(5)) })
 
-
 // // 15
 // function something(arr, d) {
 //  if(d==0) return arr
 //     for (let i = 0; i < d; i++) {
-//         let last = arr.pop();      
-//         arr.unshift(last);        
+//         let last = arr.pop();
+//         arr.unshift(last);
 //     }
 // }
 // what this function will do if arr is [4,11,222,9] and d is 5 ?
 
+// 16
+// console.log(a)
+// var a = 10
 
+// op - undefined
+
+// 17
+// console.log(a)
+// let a = 10
+// console.log(a)
+
+// op - ReferenceError: Cannot access 'a' before initialization
+
+// 18
+// console.log(0 == false)  // true
+// console.log(0 === false) // false
+
+// 19
+// console.log("A")
+// setTimeout(function() {
+//   console.log("C")
+// }, 0);
+// Promise.resolve().then(val => {
+//   console.log("F")
+//   return Promise.resolve("D")
+// }).then((data)=>{
+//   console.log(data)
+// })
+// console.log("B")
+
+// 20
+// console.log("A")
+// setTimeout(function() {
+//   console.log("G")
+// }, 0);
+// Promise.resolve().then(val => {
+//   console.log("E")
+//   return Promise.resolve("D")
+// }).then((data)=>{
+//   console.log(data)
+//   setTimeout(function() {
+//   console.log("C")
+// }, 0);
+// })
+// console.log("B")
+
+// 21
+// let obj = {
+//     name : "JS",
+//     show(){
+//         console.log(this.name)
+//     }
+// }
+
+// let a = obj.show;
+
+// a(); // undefined
+// you have a copied a function reference
+// now this currently pointing to global
+// so this.name in global doesn't exist & is undefined
+// sol
+// a.apply(obj);
