@@ -301,3 +301,19 @@
 // ✅ Easily scalable
 // ✅ Widgets decoupled
 // ✅ Clean architecture
+
+// 2nd
+// give an fake api of todo list
+// create custom useFetch hook
+// fetch data in component
+// assume api data return isCompleted flag boolean and id,title for each todo
+// make two different list based on the flag
+// task done list
+// task pending list
+// all list will have checkbox with it
+// initally task completed will be shown by already checked
+// when checkbox is clicked on completed task
+// it will move to task pending list with box marked asunchecked
+// and vice versa
+
+// time limit given 25 min
