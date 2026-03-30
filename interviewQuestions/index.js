@@ -225,7 +225,7 @@ let arr = [
 // don't you think this soln is a mess ?
 // what is react fiber
 // print 1 to 10 without using for loops, inbuilt method, while, setInterval - ans recursion
-// what is polyfill ?  create any one
+// what is polyfill ?  create any one map, filter, reduce
 // what is debounce and throttling
 // what is diff between Redux and context API
 // what is difference between thunk and saga
@@ -249,7 +249,6 @@ let arr = [
 // event propogation in js
 // event delegation
 // explain redux flow
-// What are the module in NodeJS?
 // shallow copy vs deep copy
 // js methods for shallow copy (spread operator/ object.assign)
 // js methods for deep copy (JSON.parse(JSON.stringify(obj)))/ structuredCone(obj)
@@ -266,3 +265,4 @@ let arr = [
 // What are the module in NodeJS
 // custom Ratelimiter implementation
 // without third party package
+// create custom hook for debounce in plain js
