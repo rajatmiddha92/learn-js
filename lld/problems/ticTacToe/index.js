@@ -545,3 +545,76 @@ class TicTacToeGameFactory {
 
   await game.play();
 })();
+
+interview ready 
+class TicTacToe {
+  constructor(n = 3) {
+    this.n = n;
+    this.board = Array.from({ length: n }, () => Array(n).fill(null));
+    this.currentPlayer = "X";
+    this.moves = 0;
+  }
+
+  makeMove(row, col) {
+    if (this.board[row][col] !== null) {
+      console.log("Invalid move");
+      return false;
+    }
+
+    this.board[row][col] = this.currentPlayer;
+    this.moves++;
+
+    if (this.checkWinner(row, col)) {
+      console.log(`Player ${this.currentPlayer} wins`);
+      return true;
+    }
+
+    if (this.moves === this.n * this.n) {
+      console.log("Draw");
+      return true;
+    }
+
+    this.switchPlayer();
+    return false;
+  }
+
+  switchPlayer() {
+    this.currentPlayer = this.currentPlayer === "X" ? "O" : "X";
+  }
+
+  checkWinner(row, col) {
+    const n = this.n;
+    const b = this.board;
+    const p = this.currentPlayer;
+
+    // Check row
+    if (b[row].every(cell => cell === p)) return true;
+
+    // Check column
+    if (b.every(r => r[col] === p)) return true;
+
+    // Check main diagonal
+    if (row === col && b.every((r, i) => r[i] === p)) return true;
+
+    // Check anti-diagonal
+    if (row + col === n - 1 && b.every((r, i) => r[n - 1 - i] === p)) return true;
+
+    return false;
+  }
+
+  printBoard() {
+    console.log(
+      this.board.map(row => row.map(c => c || "-").join(" | ")).join("\n")
+    );
+  }
+}
+
+const game = new TicTacToe(3);
+
+game.makeMove(0, 0); // X
+game.makeMove(1, 1); // O
+game.makeMove(0, 1); // X
+game.makeMove(2, 2); // O
+game.makeMove(0, 2); // X wins
+
+game.printBoard();
