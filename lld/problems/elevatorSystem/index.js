@@ -1,119 +1,56 @@
-// ENUM for direction
+// ENUMS
 const DIRECTION = {
   UP: 'UP',
   DOWN: 'DOWN',
   IDLE: 'IDLE',
 };
 
-class Building {
-  constructor() {
-    this.floors = [];
-    this.lifts = [];
-  }
+const REQUEST_TYPE = {
+  PICKUP: 'PICKUP',
+  DROP: 'DROP',
+};
 
-  addFloor(floorNo) {
-    this.floors.push(new Floor(floorNo));
-  }
-
-  addLift(no, capacity) {
-    this.lifts.push(new Elevator(no, capacity));
-  }
-
-  isValidFloor(floorNo) {
-    return this.floors.some((f) => f.floorNo === floorNo);
-  }
-
-  // 🎯 MAIN METHOD (instead of useLift)
-  requestLift(user, fromFloor, toFloor) {
-    if (!this.isValidFloor(fromFloor) || !this.isValidFloor(toFloor)) {
-      console.log('Invalid floor');
-      return;
-    }
-
-    const elevator = this.findBestElevator(fromFloor);
-
-    if (!elevator) {
-      console.log('No elevator available');
-      return;
-    }
-
-    console.log(`Assigning Elevator ${elevator.eleNo} to ${user.name} at floor ${fromFloor}`);
-
-    elevator.addRequest(fromFloor, user);
-    elevator.addRequest(toFloor, user);
-    elevator.processRequests();
-  }
-
-  // 🧠 SIMPLE STRATEGY (Nearest Elevator)
-  findBestElevator(fromFloor, toFloor) {
-    const direction = toFloor > fromFloor ? DIRECTION.UP : DIRECTION.DOWN;
-
-    let best = null;
-    let minDistance = Infinity;
-
-    // ✅ 1. Same direction + on the way
-    for (let lift of this.lifts) {
-      if (
-        lift.direction === direction &&
-        ((direction === DIRECTION.UP && lift.currentFloor <= fromFloor) ||
-          (direction === DIRECTION.DOWN && lift.currentFloor >= fromFloor))
-      ) {
-        let dist = Math.abs(lift.currentFloor - fromFloor);
-        if (dist < minDistance) {
-          minDistance = dist;
-          best = lift;
-        }
-      }
-    }
-
-    // ✅ 2. Idle elevators
-    if (!best) {
-      for (let lift of this.lifts) {
-        if (lift.direction === DIRECTION.IDLE) {
-          let dist = Math.abs(lift.currentFloor - fromFloor);
-          if (dist < minDistance) {
-            minDistance = dist;
-            best = lift;
-          }
-        }
-      }
-    }
-
-    // ✅ 3. Fallback (least distance)
-    if (!best) {
-      for (let lift of this.lifts) {
-        let dist = Math.abs(lift.currentFloor - fromFloor);
-        if (dist < minDistance) {
-          minDistance = dist;
-          best = lift;
-        }
-      }
-    }
-
-    return best;
+// ================== REQUEST ==================
+class Request {
+  constructor(floor, user, type) {
+    this.floor = floor;
+    this.user = user;
+    this.type = type;
   }
 }
 
+// ================== PERSON ==================
+class Person {
+  constructor(name, weight) {
+    this.name = name;
+    this.weight = weight;
+  }
+}
+
+// ================== FLOOR ==================
 class Floor {
-  constructor(number) {
-    this.floorNo = number;
+  constructor(no) {
+    this.floorNo = no;
   }
 }
 
+// ================== ELEVATOR ==================
 class Elevator {
-  constructor(no, capacity) {
-    this.eleNo = no;
+  constructor(id, capacity) {
+    this.id = id;
     this.capacity = capacity;
-    this.currCapacity = 0;
     this.currentFloor = 0;
     this.direction = DIRECTION.IDLE;
-    this.requests = []; // queue
+
+    this.currentLoad = 0;
     this.users = [];
+    this.requests = [];
+
     this.isMoving = false;
   }
 
-  addRequest(floorNo, user) {
-    this.requests.push({ floorNo, user });
+  addRequest(request) {
+    this.requests.push(request);
   }
 
   processRequests() {
@@ -125,48 +62,47 @@ class Elevator {
       if (this.requests.length === 0) {
         this.direction = DIRECTION.IDLE;
         this.isMoving = false;
-        console.log(`Elevator ${this.eleNo} is now IDLE`);
+        console.log(`Elevator ${this.id} is IDLE`);
         return;
       }
 
-      const { floorNo, user } = this.requests.shift();
-
-      this.moveToFloor(floorNo, user, processNext);
+      const req = this.requests.shift();
+      this.moveToFloor(req, processNext);
     };
 
     processNext();
   }
 
-  moveToFloor(targetFloor, user, callback) {
-    if (this.currentFloor === targetFloor) {
-      console.log(`Elevator ${this.eleNo} already at floor ${targetFloor}`);
-      callback();
-      return;
+  moveToFloor(req, callback) {
+    const { floor, user, type } = req;
+
+    if (this.currentFloor !== floor) {
+      this.direction = floor > this.currentFloor ? DIRECTION.UP : DIRECTION.DOWN;
+
+      console.log(
+        `Elevator ${this.id} moving ${this.direction} from ${this.currentFloor} to ${floor}`
+      );
+    } else {
+      console.log(`Elevator ${this.id} already at floor ${floor}`);
     }
 
-    this.direction = targetFloor > this.currentFloor ? DIRECTION.UP : DIRECTION.DOWN;
-
-    console.log(
-      `Elevator ${this.eleNo} moving ${this.direction} from ${this.currentFloor} to ${targetFloor}`
-    );
-
     setTimeout(() => {
-      this.currentFloor = targetFloor;
+      this.currentFloor = floor;
 
-      // 🧠 Capacity check when picking user
-      if (!this.users.includes(user)) {
-        if (this.currCapacity + user.weight <= this.capacity) {
+      if (type === REQUEST_TYPE.PICKUP) {
+        if (this.currentLoad + user.weight <= this.capacity) {
           this.users.push(user);
-          this.currCapacity += user.weight;
-          console.log(`${user.name} entered lift ${this.eleNo}`);
+          this.currentLoad += user.weight;
+          console.log(`${user.name} ENTERED lift ${this.id}`);
         } else {
-          console.log('Overweight! Cannot enter.');
+          console.log(`❌ Overweight! ${user.name} cannot enter`);
         }
-      } else {
-        // user exits
-        this.users = this.users.filter((u) => u.name !== user.name);
-        this.currCapacity -= user.weight;
-        console.log(`${user.name} exited at floor ${targetFloor}`);
+      }
+
+      if (type === REQUEST_TYPE.DROP) {
+        this.users = this.users.filter((u) => u !== user);
+        this.currentLoad -= user.weight;
+        console.log(`${user.name} EXITED at floor ${floor}`);
       }
 
       callback();
@@ -174,27 +110,97 @@ class Elevator {
   }
 }
 
-class Person {
-  constructor(name, weight) {
-    this.name = name;
-    this.weight = weight;
+// ================== BUILDING ==================
+class Building {
+  constructor() {
+    this.floors = [];
+    this.elevators = [];
+  }
+
+  addFloor(no) {
+    this.floors.push(new Floor(no));
+  }
+
+  addElevator(id, capacity) {
+    this.elevators.push(new Elevator(id, capacity));
+  }
+
+  isValidFloor(floor) {
+    return this.floors.some((f) => f.floorNo === floor);
+  }
+
+  requestLift(user, from, to) {
+    if (!this.isValidFloor(from) || !this.isValidFloor(to)) {
+      console.log('Invalid floor');
+      return;
+    }
+
+    const elevator = this.findBestElevator(from, to);
+
+    if (!elevator) {
+      console.log('No elevator available');
+      return;
+    }
+
+    console.log(`Assigning Elevator ${elevator.id} to ${user.name} at floor ${from}`);
+
+    // ✅ Proper request objects
+    elevator.addRequest(new Request(from, user, REQUEST_TYPE.PICKUP));
+    elevator.addRequest(new Request(to, user, REQUEST_TYPE.DROP));
+
+    elevator.processRequests();
+  }
+
+  findBestElevator(from, to) {
+    const direction = to > from ? DIRECTION.UP : DIRECTION.DOWN;
+
+    let best = null;
+    let minDist = Infinity;
+
+    // same direction
+    for (let lift of this.elevators) {
+      if (
+        lift.direction === direction &&
+        ((direction === DIRECTION.UP && lift.currentFloor <= from) ||
+          (direction === DIRECTION.DOWN && lift.currentFloor >= from))
+      ) {
+        let dist = Math.abs(lift.currentFloor - from);
+        if (dist < minDist) {
+          minDist = dist;
+          best = lift;
+        }
+      }
+    }
+
+    // idle lifts
+    if (!best) {
+      for (let lift of this.elevators) {
+        if (lift.direction === DIRECTION.IDLE) {
+          let dist = Math.abs(lift.currentFloor - from);
+          if (dist < minDist) {
+            minDist = dist;
+            best = lift;
+          }
+        }
+      }
+    }
+
+    return best;
   }
 }
 
-/////// TEST ///////
-
-let B1 = new Building();
+// ================== TEST ==================
+const building = new Building();
 
 for (let i = 0; i <= 6; i++) {
-  B1.addFloor(i);
+  building.addFloor(i);
 }
 
-B1.addLift(1, 100);
-B1.addLift(2, 200);
+building.addElevator(1, 100);
+building.addElevator(2, 200);
 
-let u1 = new Person('Rajat', 40);
-let u2 = new Person('Neelesh', 60);
+const p1 = new Person('Rajat', 40);
+const p2 = new Person('Neelesh', 60);
 
-// 🎯 User just requests — no elevator selection
-B1.requestLift(u1, 0, 5);
-B1.requestLift(u2, 2, 6);
+building.requestLift(p1, 0, 5);
+building.requestLift(p2, 2, 3);
