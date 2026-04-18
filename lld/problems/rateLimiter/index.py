@@ -1,4 +1,11 @@
 import time
+from collections import deque
+
+strategyType = {
+    "FIXED_WINDOW": "FIXED_WINDOW",
+    "SLIDING_WINDOW": "SLIDING_WINDOW",
+    "TOKEN_BUCKET": "TOKEN_BUCKET"
+}
 
 class RateLimitConfig:
     def __init__(self, limit, window_size, strategy):
@@ -30,7 +37,7 @@ class FixedWindowStrategy(RateLimiterStrategy):
 
         return False            
     
-from collections import deque
+
 
 class SlidingWindowStrategy(RateLimiterStrategy):
     def __init__(self, config):
@@ -81,11 +88,11 @@ class TokenBucketStrategy(RateLimiterStrategy):
 class RateLimiterFactory:
     @staticmethod
     def get_strategy(config):
-        if config.strategy == "FIXED_WINDOW":
+        if config.strategy == strategyType["FIXED_WINDOW"]:
             return FixedWindowStrategy(config)
-        elif config.strategy == "SLIDING_WINDOW":
+        elif config.strategy == strategyType["SLIDING_WINDOW"]:
             return SlidingWindowStrategy(config)
-        elif config.strategy == "TOKEN_BUCKET":
+        elif config.strategy == strategyType["TOKEN_BUCKET"]:
             return TokenBucketStrategy(config)
         else:
             raise Exception("Invalid strategy")    
@@ -114,7 +121,7 @@ class User :
 rateLimiter = RateLimiter();
 u1 = User("user123", "1.2.3.4");
 
-config = RateLimitConfig(5, 10, "TOKEN_BUCKET");
+config = RateLimitConfig(5, 10, strategyType["TOKEN_BUCKET"]);
 
 rateLimiter.register(u1, config);
 
