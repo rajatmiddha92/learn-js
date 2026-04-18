@@ -266,3 +266,4 @@ let arr = [
 // custom Ratelimiter implementation
 // without third party package
 // create custom hook for debounce in plain js
+// promise.race
