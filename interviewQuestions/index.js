@@ -266,3 +266,22 @@ let arr = [
 // custom Ratelimiter implementation
 // without third party package
 // create custom hook for debounce in plain js
+// promise.race
+// socket related scenarios questions 
+// suppose we have multiple instances node application and client is connected to any server don't you think we are not able to make client connected to all servers
+so how would you handle sockets connection in multiple cluster node app
+// answer we use redis adapter 
+// redis adapter is used 
+ // index mongo deepdive when million of records how do you handle 
+// creatindex compound index
+// how compound indexes work
+// explain redis and use case
+// comparison between redis and MongoDB 
+// redis is fast and use ram
+// followup 
+// as you will have limit resource 
+// so you can configure memory limit config under the hood there are catching strategies used like lru caching, fru caching explain them
+// write a code for lru cache
+// explain rag vs MCP
+// explain how do you handle llm hallucination and y did this happen 
+// how will you debug and application in microservice if there are 10 different microservices and multiple microservices are using this one microservices and how would you use identify it
