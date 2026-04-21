@@ -135,7 +135,7 @@ class RateLimiterFactory {
 }
 
 class RateLimiter {
-    private strategies: Map<User, RateLimiterStrategy>;
+    public strategies: Map<User, RateLimiterStrategy>;
 
     constructor() {
         this.strategies = new Map();
@@ -147,7 +147,9 @@ class RateLimiter {
     }
 
     allow(key: User): boolean {
+        // convert milliseconds to seconds  
         const timestamp = Math.floor(Date.now() / 1000);
+        console.log(timestamp);
 
         if (!this.strategies.has(key)) {
             return true; // no limit
@@ -170,13 +172,16 @@ class User {
 const rateLimiter = new RateLimiter();
 const u1 = new User("user123", "1.2.3.4");
 
-const config = new RateLimitConfig(5, 10, "TOKEN_BUCKET");
+const config = new RateLimitConfig(5, 10, "FIXED_WINDOW");
 
 rateLimiter.register(u1, config);
-
+console.dir(rateLimiter, { depth: null })
 // simulate requests
 for (let i = 0; i < 10; i++) {
-    const allowed = rateLimiter.allow(u1);
-    console.log(`Request ${i}: ${allowed}`);
+    setTimeout(() => {
+        const allowed = rateLimiter.allow(u1);
+        console.log(`Request ${i}: ${allowed}`);
+    }, i * 1000);
+
 }
 // run command - npx tsx filePath

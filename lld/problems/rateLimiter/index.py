@@ -110,12 +110,15 @@ class RateLimiter:
         if key not in self.strategies:
             return True
 
-        return self.strategies[key].allow_request(key, timestamp)  
+        return self.strategies[key].allow_request(key, timestamp) 
+    
 
 class User :
     def __init__(self,id,ip):
         self.ip = ip
         self.id = id
+
+
     
 
 rateLimiter = RateLimiter();
@@ -123,7 +126,9 @@ u1 = User("user123", "1.2.3.4");
 
 config = RateLimitConfig(5, 10, strategyType["TOKEN_BUCKET"]);
 
+
 rateLimiter.register(u1, config);
+
 
 # simulate requests
 for i in range(0,10): 
