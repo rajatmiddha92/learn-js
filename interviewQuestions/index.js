@@ -285,3 +285,11 @@ so how would you handle sockets connection in multiple cluster node app
 // explain rag vs MCP
 // explain how do you handle llm hallucination and y did this happen 
 // how will you debug and application in microservice if there are 10 different microservices and multiple microservices are using this one microservices and how would you use identify it
+// react fiber 
+// react reconciliation 
+// bind polyfills 
+// flat deeply nested arr
+// flat deeply nested obj
+// hydration in browser 
+// core web vitals
+// 
