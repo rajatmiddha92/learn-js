@@ -292,4 +292,4 @@ so how would you handle sockets connection in multiple cluster node app
 // flat deeply nested obj
 // hydration in browser 
 // core web vitals
-// 
+// error handle in reactjs 
